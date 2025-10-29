@@ -20,11 +20,14 @@ export const rules: Required<ModuleOptions>["rules"] = [
   },
   {
     test: /\.tsx?$/,
-    exclude: /(node_modules|\.webpack)/,
+    exclude: /(\.webpack)/,
     use: {
       loader: "ts-loader",
       options: {
         transpileOnly: true,
+        compilerOptions: {
+          preserveConstEnums: true,
+        },
       },
     },
   },
