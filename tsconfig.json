@@ -12,8 +12,10 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "paths": {
-      "*": ["node_modules/*"]
-    }
+      "*": ["node_modules/*"],
+      "@/*": ["./src/*"]
+    },
+    "types": ["@overwolf/ow-electron-packages-types"]
   },
   "include": ["src/**/*"]
 }
