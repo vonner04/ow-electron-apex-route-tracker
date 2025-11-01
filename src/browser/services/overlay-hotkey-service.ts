@@ -1,9 +1,13 @@
+import { OverlayService } from "@/browser/services/overlay-service";
 import { app } from "electron";
 import { overwolf } from "@overwolf/ow-electron";
-import { ExclusiveInputOptions, IOverwolfOverlayApi } from "@overwolf/ow-electron-packages-types";
+import {
+  ExclusiveInputOptions,
+  IOverwolfOverlayApi,
+  PassthroughType,
+  ZOrderType,
+} from "@overwolf/ow-electron-packages-types";
 import EventEmitter from "events";
-import { OverlayService } from "@/browser/services/overlay-service";
-import { Passthrough, ZOrder } from "@/constants/overlay-constants";
 
 const owElectron = app as overwolf.OverwolfApp;
 
@@ -98,7 +102,7 @@ export class OverlayHotkeysService extends EventEmitter {
 
     this.overlayApi?.getAllWindows()?.forEach((w) => {
       const overlayOptions = w.overlayOptions;
-      overlayOptions.passthrough = Passthrough.NoPassThrough;
+      overlayOptions.passthrough = PassthroughType.NoPassThrough;
     });
   }
 
@@ -107,7 +111,7 @@ export class OverlayHotkeysService extends EventEmitter {
 
     this.overlayApi.getAllWindows()?.forEach((w) => {
       const overlayOptions = w.overlayOptions;
-      overlayOptions.zOrder = ZOrder.Default;
+      overlayOptions.zOrder = ZOrderType.Default;
     });
   }
 

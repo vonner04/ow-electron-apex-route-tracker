@@ -9,9 +9,11 @@ import {
   IOverwolfOverlayApi,
   OverlayBrowserWindow,
   OverlayWindowOptions,
+  PassthroughType,
+  ZOrderType,
 } from "@overwolf/ow-electron-packages-types";
 import path from "path";
-import { Passthrough, ZOrder } from "@/constants/overlay-constants";
+
 const owElectron = app as overwolf.OverwolfApp;
 
 export enum ExclusiveHotKeyMode {
@@ -96,13 +98,14 @@ export class OverlayInputService {
     const activeGame = this.overlayApi.getActiveGameInfo();
     const width = activeGame?.gameWindowInfo?.size.width || 500;
     const height = activeGame?.gameWindowInfo?.size.height || 500;
+
     const options: OverlayWindowOptions = {
       name: "exclusiveModeBackground",
       height: height,
       width: width,
       show: true,
-      passthrough: Passthrough.PassThrough,
-      zOrder: ZOrder.BottomMost,
+      passthrough: PassthroughType.PassThrough,
+      zOrder: ZOrderType.BottomMost,
       transparent: true,
       resizable: false,
       webPreferences: {

@@ -6,7 +6,6 @@ import {
   PassthroughType,
   ZOrderType,
 } from "@overwolf/ow-electron-packages-types";
-import { Passthrough, ZOrder } from "@/constants/overlay-constants";
 
 /**
  * Offscreen rendering window for overlays
@@ -79,12 +78,14 @@ export class OSRWindowController {
       window?.minimize();
     });
 
-    windowIpc.on("setPassthrough", (e, value: keyof typeof Passthrough) => {
-      this.setWindowPassthrough(Passthrough[value]);
+    windowIpc.on("setPassthrough", (e, value) => {
+      let pass = parseInt(value);
+      this.setWindowPassthrough(pass);
     });
 
-    windowIpc.on("setZorder", (e, value: keyof typeof ZOrder) => {
-      this.setWindowZorder(ZOrder[value]);
+    windowIpc.on("setZorder", (e, value) => {
+      let zOrder = parseInt(value);
+      this.setWindowZorder(zOrder);
     });
 
     windowIpc.on("devtools", () => {

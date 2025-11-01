@@ -64,7 +64,7 @@ export class MainWindowController {
   /**
    *
    */
-  public printLogMessage(message: String, ...args: any[]) {
+  public printLogMessage(message: string, ...args: any[]) {
     if (this.browserWindow?.isDestroyed() ?? true) {
       return;
     }
@@ -72,7 +72,7 @@ export class MainWindowController {
   }
 
   //----------------------------------------------------------------------------
-  private logPackageManagerErrors(packageName: String, ...args: any[]) {
+  private logPackageManagerErrors(packageName: string, ...args: any[]) {
     this.printLogMessage("Overwolf Package Manager error!", packageName, ...args);
   }
 
@@ -91,8 +91,9 @@ export class MainWindowController {
         nodeIntegration: true,
         contextIsolation: true,
         devTools: showDevTools,
-        // relative to root folder of the project
-        preload: path.join(__dirname, "../preload/preload.js"),
+        // use the path that matches the WebpackPlugin config in forge.config.ts
+        preload: path.join(__dirname, "../main_window/preload.js"),
+        sandbox: false,
       },
     });
 
@@ -124,35 +125,35 @@ export class MainWindowController {
       this.overlayHotkeysService?.updateHotkey();
     });
 
-    ipcMain.handle("updateExclusiveOptions", async (sender, options) => {
-      this.overlayInputService?.updateExclusiveModeOptions(options);
-    });
+    // ipcMain.handle("updateExclusiveOptions", async (sender, options) => {
+    //   this.overlayInputService?.updateExclusiveModeOptions(options);
+    // });
 
-    ipcMain.handle("EXCLUSIVE_TYPE", async (sender, type) => {
-      if (!this.overlayInputService) {
-        return;
-      }
+    // ipcMain.handle("EXCLUSIVE_TYPE", async (sender, type) => {
+    //   if (!this.overlayInputService) {
+    //     return;
+    //   }
 
-      if (type === "customWindow") {
-        this.overlayInputService.exclusiveModeAsWindow = true;
-      } else {
-        // native
-        this.overlayInputService.exclusiveModeAsWindow = false;
-      }
-    });
+    //   if (type === "customWindow") {
+    //     this.overlayInputService.exclusiveModeAsWindow = true;
+    //   } else {
+    //     // native
+    //     this.overlayInputService.exclusiveModeAsWindow = false;
+    //   }
+    // });
 
-    ipcMain.handle("EXCLUSIVE_BEHAVIOR", async (sender, behavior) => {
-      if (!this.overlayInputService) {
-        return;
-      }
+    // ipcMain.handle("EXCLUSIVE_BEHAVIOR", async (sender, behavior) => {
+    //   if (!this.overlayInputService) {
+    //     return;
+    //   }
 
-      if (behavior === "toggle") {
-        this.overlayInputService.mode = ExclusiveHotKeyMode.Toggle;
-      } else {
-        // native
-        this.overlayInputService.mode = ExclusiveHotKeyMode.AutoRelease;
-      }
-    });
+    //   if (behavior === "toggle") {
+    //     this.overlayInputService.mode = ExclusiveHotKeyMode.Toggle;
+    //   } else {
+    //     // native
+    //     this.overlayInputService.mode = ExclusiveHotKeyMode.AutoRelease;
+    //   }
+    // });
   }
 
   /**
