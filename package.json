@@ -1,51 +1,86 @@
 {
-  "name": "overwolf-electron-apex-route-tracker",
-  "productName": "overwolf-electron-apex-route-tracker",
-  "version": "1.0.0",
-  "main": ".webpack/main",
-  "scripts": {
-    "start": "electron-forge start",
-    "package": "electron-forge package",
-    "make": "electron-forge make",
-    "publish": "electron-forge publish",
-    "lint": "eslint --ext .ts,.tsx ."
-  },
-  "keywords": [],
+  "name": "ow-electron-apex-route-tracker",
+  "version": "22.3.13",
+  "description": "strava-like app for apex legends ranked maps",
+  "main": "dist/browser/index.js",
   "author": {
-    "name": "vonner04",
+    "name": "Randy Leean Dayrit",
     "email": "randyleean092m@gmail.com"
   },
   "license": "MIT",
-  "devDependencies": {
-    "@electron-forge/cli": "^7.10.2",
-    "@electron-forge/maker-deb": "^7.10.2",
-    "@electron-forge/maker-rpm": "^7.10.2",
-    "@electron-forge/maker-squirrel": "^7.10.2",
-    "@electron-forge/maker-zip": "^7.10.2",
-    "@electron-forge/plugin-auto-unpack-natives": "^7.10.2",
-    "@electron-forge/plugin-fuses": "^7.10.2",
-    "@electron-forge/plugin-webpack": "^7.10.2",
-    "@electron/fuses": "^1.8.0",
-    "@overwolf/electron-is-overwolf": "^0.0.2",
-    "@overwolf/ow-electron": "^37.2.6",
-    "@overwolf/ow-electron-builder": "^26.0.12",
-    "@overwolf/ow-electron-packages-types": "^0.0.16",
-    "@typescript-eslint/eslint-plugin": "^5.62.0",
-    "@typescript-eslint/parser": "^5.62.0",
-    "@vercel/webpack-asset-relocator-loader": "^1.7.3",
-    "css-loader": "^6.11.0",
-    "electron": "39.0.0",
-    "electron-reloader": "^1.2.3",
-    "eslint": "^8.57.1",
-    "eslint-plugin-import": "^2.32.0",
-    "fork-ts-checker-webpack-plugin": "^7.3.0",
-    "html-webpack-plugin": "^5.6.4",
-    "node-loader": "^2.1.0",
-    "style-loader": "^3.3.4",
-    "ts-loader": "^9.5.4",
-    "typescript": "~4.5.4"
+  "overwolf": {
+    "packages": [
+      "gep",
+      "overlay"
+    ]
   },
-  "dependencies": {
-    "electron-squirrel-startup": "^1.0.1"
+  "build": {
+    "nodeGypRebuild": false,
+    "appId": "com.overwolf.packageSample",
+    "asar": true,
+    "overwolf": {
+      "disableAdOptimization": false
+    },
+    "productName": "owElectronpackageSample",
+    "directories": {
+      "output": "build"
+    },
+    "files": [
+      "dist/**/*",
+      "*.js",
+      "*.html",
+      "*.exe"
+    ],
+    "copyright": "Copyright 2023 Overwolf Ltd.",
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "artifactName": "${productName}-Setup-${version}.${ext}",
+      "legalTrademarks": "Copyright 2023 Overwolf Ltd."
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    }
+  },
+  "scripts": {
+    "build:renderer": "webpack --config ./webpack.renderer.config.js",
+    "build:main": "webpack --config ./webpack.main.config.js",
+    "build": "yarn webpack --mode=development && yarn build:main && yarn build:renderer",
+    "build:dev": "yarn webpack --watch --mode=development",
+    "build:start": "yarn run build && ow-electron . ",
+    "start": "ow-electron .",
+    "build:ow-electron": "ow-electron-builder --c.extraMetadata.name=GameEventsTester --publish=never"
+  },
+  "devDependencies": {
+    "@overwolf/ow-electron": "latest",
+    "@overwolf/ow-electron-builder": "latest",
+    "@overwolf/ow-electron-packages-types": "^0.0.5",
+    "@types/jquery": "^3.5.16",
+    "@types/jsonwebtoken": "^9.0.1",
+    "@types/node": "^18.11.18",
+    "copy-webpack-plugin": "^11.0.0",
+    "css-loader": "^7.1.2",
+    "electron": "^39.0.0",
+    "html-webpack-plugin": "^5.5.0",
+    "jest": "^29.3.1",
+    "jest-environment-jsdom": "^29.3.1",
+    "jest-junit": "^15.0.0",
+    "jest-mock-extended": "^3.0.1",
+    "reflect-metadata": "^0.1.13",
+    "style-loader": "^4.0.0",
+    "ts-jest": "^29.0.3",
+    "ts-loader": "^9.4.2",
+    "typescript": "^4.7.4",
+    "typescript-logging": "^2.0.2",
+    "webpack": "^5.75.0",
+    "webpack-cli": "^5.0.1",
+    "wrapper-webpack-plugin": "^2.1.0"
   }
 }
