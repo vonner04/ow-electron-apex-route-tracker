@@ -7,7 +7,7 @@ const rendererConfig = { ...config };
 rendererConfig.target = "electron-renderer";
 rendererConfig.entry = {
   renderer: "./src/renderer/renderer.ts",
-  preload: "./src/preloader/preload.ts",
+  preload: "./src/preload/preload.ts",
   //   exclusive: "./src/renderer/exclusive.ts",
 };
 
