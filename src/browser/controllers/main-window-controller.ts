@@ -91,8 +91,7 @@ export class MainWindowController {
         nodeIntegration: true,
         contextIsolation: true,
         devTools: showDevTools,
-        // use the path that matches the WebpackPlugin config in forge.config.ts
-        preload: path.join(__dirname, "../main_window/preload.js"),
+        preload: path.join(__dirname, "../preload/preload.js"),
         sandbox: false,
       },
     });

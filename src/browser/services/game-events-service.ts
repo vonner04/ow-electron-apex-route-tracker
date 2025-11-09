@@ -1,7 +1,7 @@
 import { app as electronApp } from "electron";
 import { overwolf } from "@overwolf/ow-electron";
 import EventEmitter from "events";
-
+import { APEXLEGENDS_GAMEID } from "@/constants";
 const app = electronApp as overwolf.OverwolfApp;
 
 /**
@@ -13,6 +13,7 @@ export class GameEventsService extends EventEmitter {
   private gepApi: overwolf.packages.OverwolfGameEventPackage;
   private activeGame = 0;
   private gepGamesId: number[] = [];
+  private apexFeatures: string[] = ["location", "match_info"];
 
   constructor() {
     super();
@@ -35,13 +36,18 @@ export class GameEventsService extends EventEmitter {
   }
 
   /**
-   *
+   * TODO: need to somehow do this all automatically.
    */
   public async setRequiredFeaturesForAllSupportedGames() {
     await Promise.all(
       this.gepGamesId.map(async (gameId) => {
         this.emit("log", `set-required-feature for: ${gameId}`);
-        await this.gepApi.setRequiredFeatures(gameId, null);
+
+        if (gameId == APEXLEGENDS_GAMEID) {
+          await this.gepApi.setRequiredFeatures(gameId, this.apexFeatures);
+        } else {
+          await this.gepApi.setRequiredFeatures(gameId, null);
+        }
       })
     );
   }

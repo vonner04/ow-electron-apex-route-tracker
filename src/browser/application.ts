@@ -3,8 +3,7 @@ import { MainWindowController } from "@/browser/controllers/main-window-controll
 import { OverlayService } from "@/browser/services/overlay-service";
 import { kGameIds } from "@overwolf/ow-electron-packages-types/game-list";
 import { GameEventsService } from "@/browser/services/game-events-service";
-
-const APEXLEGENDS_GAMEID: number = 21566;
+import { APEXLEGENDS_GAMEID } from "@/constants";
 
 export class Application {
   /**
@@ -51,6 +50,6 @@ export class Application {
    */
   private onOverlayServiceReady() {
     // Which games to support overlay for
-    this.overlayService.registerToGames([kGameIds.ApexLegends]);
+    this.overlayService.registerToGames([APEXLEGENDS_GAMEID]);
   }
 }
