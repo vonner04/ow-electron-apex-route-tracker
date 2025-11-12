@@ -1,0 +1,4 @@
+{
+  "ignore": ["src/assets/", "node_modules/"],
+  "ext": "ts, js, json, html"
+}

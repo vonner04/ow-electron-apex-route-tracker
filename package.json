@@ -52,11 +52,15 @@
   "scripts": {
     "build:renderer": "webpack --config ./webpack.renderer.config.js",
     "build:main": "webpack --config ./webpack.main.config.js",
-    "build": "yarn webpack --mode=development && yarn build:main && yarn build:renderer",
+    "build:pain-need-to-reloadHTML-not-recommended-andrebuildmain": "yarn webpack --mode=development && yarn build:main && yarn build:renderer",
     "build:dev": "yarn webpack --watch --mode=development",
     "build:start": "yarn run build && ow-electron . ",
     "start": "ow-electron .",
-    "build:ow-electron": "ow-electron-builder --c.extraMetadata.name=GameEventsTester --publish=never"
+    "build:ow-electron": "ow-electron-builder --c.extraMetadata.name=GameEventsTester --publish=never",
+    "watch:main": "webpack --config ./webpack.main.config.js --mode=development --watch",
+    "watch:renderer": "webpack --config ./webpack.renderer.config.js --mode=development --watch",
+    "dev:ow": "nodemon --exec electron .",
+    "dev": "concurrently -k \"npm run watch:main\" \"npm run watch:renderer\" \"npm run dev:ow\""
   },
   "devDependencies": {
     "@overwolf/ow-electron": "latest",
@@ -75,6 +79,7 @@
     "jest-environment-jsdom": "^29.3.1",
     "jest-junit": "^15.0.0",
     "jest-mock-extended": "^3.0.1",
+    "nodemon": "^3.1.10",
     "reflect-metadata": "^0.1.13",
     "style-loader": "^4.0.0",
     "ts-jest": "^29.0.3",

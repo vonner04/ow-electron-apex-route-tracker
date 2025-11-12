@@ -37,14 +37,7 @@ if (window.gep) {
 }
 console.log("Looking for UI elements...");
 
-const btnGetInfo = document.querySelector("#btn-getInfo");
-console.log("Found getInfo button:", !!btnGetInfo);
-
 const btnSetRequiredFeatures = document.querySelector("#btn-setRequiredFeatures");
-console.log("Found setRequiredFeatures button:", !!btnSetRequiredFeatures);
-
-const btnTest = document.querySelector("#btn-test");
-console.log("Found test button:", !!btnTest);
 
 if (!btnSetRequiredFeatures) {
   console.error("Required features button not found! Check your HTML IDs.");
@@ -82,14 +75,3 @@ async function handleSetRequiredFeaturesClick() {
 }
 
 btnSetRequiredFeatures.addEventListener("click", handleSetRequiredFeaturesClick);
-
-async function handleBtnTest() {
-  try {
-    console.log("Renderer: button test clicked");
-  } catch (error) {
-    console.error("Test: btn test error: ", error);
-    addMessageToTerminal(`btn-test error: ${error.message || error}`);
-  }
-}
-
-btnTest.addEventListener("click", handleBtnTest);
